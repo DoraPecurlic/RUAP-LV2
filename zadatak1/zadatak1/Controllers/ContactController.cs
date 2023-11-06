@@ -4,32 +4,27 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using zadatak1.Models;
+using zadatak1.Services;
+using System.Web.Http;
 
 namespace zadatak1.Controllers
 {
-    public class ContactController : Controller
+    public class ContactController : ApiController
     {
+
+        private ContactRepository contactRepository;
+
+        public ContactController()
+        {
+            this.contactRepository = new ContactRepository();
+        }
         // GET: Contact
+
+
         public Contact[] Get()
         {
-            return new Contact[]
-            {
-                new Contact
-                {
-                    Id = 1,
-                    Name = "Glenn Block"
-                },
-                new Contact
-                {
-                    Id = 2,
-                    Name = "Dan Roth"
-                }
+            return this.contactRepository.GetAllContacts();
+        }
 
-            };
-        }
-        public ActionResult Index()
-        {
-            return View();
-        }
     }
 }
