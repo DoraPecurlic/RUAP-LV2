@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using zadatak1.Models;
 using zadatak1.Services;
 using System.Web.Http;
+using System.Net.Http;
 
 namespace zadatak1.Controllers
 {
@@ -24,6 +25,15 @@ namespace zadatak1.Controllers
         public Contact[] Get()
         {
             return this.contactRepository.GetAllContacts();
+        }
+
+        public HttpResponseMessage Post(Contact contact)
+        {
+            this.contactRepository.SaveContact(contact);
+
+            var response = Request.CreateResponse<Contact>(System.Net.HttpStatusCode.Created, contact);
+
+            return response;
         }
 
     }
